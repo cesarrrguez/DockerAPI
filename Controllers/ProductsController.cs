@@ -10,11 +10,11 @@ namespace DockerApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public ProductController(DataContext context)
+        public ProductsController(DataContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
@@ -39,8 +39,7 @@ namespace DockerApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Product>> Update(int id, [FromBody] Product productInput)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var product = await _context.Products.FindAsync(id).ConfigureAwait(false);
 
